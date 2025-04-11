@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI-powered outfit generator for fashion enthusiasts">
+    <title>OutfitXpert | AI-Powered Fashion Assistant</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script defer src="/static/script1.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <header class="header">
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="logo-container">
+                <a href="#" class="fashion-logo">
+                  <div class="logo-main">OutfitXpert</div>
+                  <div class="logo-sub">Luxury</div>
+                </a>
+              </div>
+            <ul class="nav-links">
+                <a href="#trends">Fashion Trends</a>
+                <a href="#filters">Filter</a>
+                <a href="#review">Review</a>
+                <a href="#contact">Contact</a>
+            </ul>
+            <button class="cta-button">Get Started</button>
+        </nav>
+    </header>
+
+    <!-- ===== Login / Sign-Up Modal ===== -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-box">
+            <span class="close-btn" id="closeLogin">&times;</span>
+            <div class="form-toggle">
+                <button id="loginTab" class="active">Login</button>
+                <button id="signupTab">Sign Up</button>
+            </div>
+            <form id="loginForm" class="form active-form">
+                <div class="social-login">
+                    <button type="button" class="google-btn">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    <button type="button" class="facebook-btn">
+                        <i class="fab fa-facebook-f"></i> Continue with Facebook
+                    </button>
+                </div>
+                <hr class="form-divider" />
+                <input type="email" id="loginEmail" placeholder="Email" required />
+                <input type="password" id="loginPassword" placeholder="Password" required />
+                <div class="form-options">
+                    <label><input type="checkbox" id="rememberMe" /> Remember me</label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <p id="loginError" class="form-error"></p>
+                <button type="submit">Login</button>
+            </form>
+
+            <form id="signupForm" class="form">
+                <input type="text" id="signupName" placeholder="Full Name" required />
+                <input type="email" id="signupEmail" placeholder="Email" required />
+                <input type="password" id="signupPassword" placeholder="Password" required />
+                <p id="signupError" class="form-error"></p>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-container" id="heroContainer">
+            <!-- Hero Block 1 -->
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="badge">SUMMER SALE IS ON</span>
+                    <h1>Discover Your Perfect Outfit with AI</h1>
+                    <p>Upload your photo and try on new styles instantly.</p>
+                    <button class="cta-button">Try Now</button>
+                </div>
+                <div class="hero-image interactive-hero">
+                    <img src="https://images.unsplash.com/photo-1612423284934-74979bc9f93e?auto=format&fit=crop&w=800&q=80" alt="AI styled fashion">
+                </div>
+            </div>
+    
+            <!-- Hero Block 2 -->
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="badge">NEW ARRIVALS</span>
+                    <h1>Style Reimagined Just for You</h1>
+                    <p>AI-driven fashion recommendations based on your body type.</p>
+                    <button class="cta-button">Explore Collection</button>
+                </div>
+                <div class="hero-image interactive-hero">
+                    <img src="https://images.unsplash.com/photo-1618354691249-7a6b4edb4034?auto=format&fit=crop&w=800&q=80" alt="Smart outfit preview">
+                </div>
+            </div>
+    
+            <!-- Hero Block 3 -->
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="badge">TRENDING NOW</span>
+                    <h1>Get the Look of Your Favorite Celebrities</h1>
+                    <p>Upload your image and recreate trending outfits with ease.</p>
+                    <button class="cta-button">Recreate Style</button>
+                </div>
+                <div class="hero-image interactive-hero">
+                    <img src="https://images.unsplash.com/photo-1593032457869-b0c948ef4e7b?auto=format&fit=crop&w=800&q=80" alt="Celebrity inspired fashion">
+                </div>
+            </div>
+    
+            <!-- Hero Block 4 -->
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="badge">AI FIT GUARANTEE</span>
+                    <h1>Tailored to You</h1>
+                    <p>Let our AI customize clothing recommendations just for your look.</p>
+                    <button class="cta-button">Customize Now</button>
+                </div>
+                <div class="hero-image interactive-hero">
+                    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80" alt="Tailored fashion experience">
+                </div>
+            </div>
+        </div>
+    </section>     
+
+    <!-- ===== TRENDS SECTION ===== -->
+    <section id="trends" class="section" aria-labelledby="trends-heading">
+        <h2 id="trends-heading">Current Fashion Trends</h2>
+        <div class="trends-grid">
+            <article class="trend-card">
+                <img src="./trends/formalcloth4.jpeg" alt="Summer Casual Outfit" loading="lazy">
+                <h3>Summer Casual</h3>
+            </article>
+            <article class="trend-card">
+                <img src="trend2.jpg" alt="Urban Streetwear" loading="lazy">
+                <h3>Urban Streetwear</h3>
+            </article>
+            <article class="trend-card">
+                <img src="./trends/formalcloth3.jpeg" alt="Elegant Formal" loading="lazy">
+                <h3>Elegant Formal</h3>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===== FILTER SECTION ===== -->
+    <section id="filters" class="section" aria-labelledby="filters-heading">
+        <h2 id="filters-heading">Customize Your Look</h2>
+        <div
+            style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; padding: 20px; max-width: 1200px; margin: auto;">
+            {% if message %}
+            <div style="color: red; font-weight: bold; margin-bottom: 15px;">
+                {{ message }}
+            </div>
+            {% endif %}
+
+            <form action="/" method="post" enctype="multipart/form-data"
+                style="flex: 1; min-width: 300px; max-width: 500px;">
+                <label for="image">Upload Your Image:</label>
+                <input type="file" name="image" accept="image/*" required>
+
+                <label for="change">Change:</label>
+                <select name="change" required>
+                    {% for option in change_options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+
+                <h4>Shirt Options</h4>
+                <label for="shirt_color">Color:</label>
+                <select name="shirt_color" required>
+                    {% for color in color_options %}
+                    <option value="{{ color }}">{{ color }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="shirt_pattern">Pattern:</label>
+                <select name="shirt_pattern" required>
+                    {% for pattern in pattern_options %}
+                    <option value="{{ pattern }}">{{ pattern }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="shirt_type">Type:</label>
+                <select name="shirt_type" required>
+                    {% for t in type_options %}
+                    <option value="{{ t }}">{{ t }}</option>
+                    {% endfor %}
+                </select>
+
+                <h4>Pant Options</h4>
+                <label for="pant_color">Color:</label>
+                <select name="pant_color" required>
+                    {% for color in color_options %}
+                    <option value="{{ color }}">{{ color }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="pant_pattern">Pattern:</label>
+                <select name="pant_pattern" required>
+                    {% for pattern in pattern_options %}
+                    <option value="{{ pattern }}">{{ pattern }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="pant_type">Type:</label>
+                <select name="pant_type" required>
+                    {% for t in type_options %}
+                    <option value="{{ t }}">{{ t }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Generate Outfit</button>
+            </form>
+
+            <div id="loader" class="spinner" style="display: none; margin-top: 20px;"></div>
+
+            <div style="flex: 1; min-width: 300px; max-width: 500px; text-align: center;">
+                <h4>Generated Output</h4>
+                {% if output_image_path %}
+                <img src="{{ output_image_path }}" alt="Generated Outfit"
+                    style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                <br />
+                <a href="/download/{{ output_filename }}">
+                    <button>Download Output</button>
+                </a>
+                {% else %}
+                <p>No output image yet. Submit the form to generate an outfit.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="review">
+        <h2>What Customers Say</h2>
+        <p>Showing our latest arrival on this summer</p>
+
+        <div class="testimonial-cards">
+            <div class="card">
+                <div class="quote">“</div>
+                <div class="stars">★★★★★</div>
+                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Sanjida Ema</strong><br>
+                        <small>Journalist</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="quote">“</div>
+                <div class="stars">★★★★★</div>
+                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Mike Anderson</strong><br>
+                        <small>Web Developer</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="quote">“</div>
+                <div class="stars">★★★★☆</div>
+                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Nelson Rich</strong><br>
+                        <small>Designer</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav prev">‹</button>
+            <button class="nav next">›</button>
+        </div>
+
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <!-- Footer Start -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="logo-container">
+                    <a href="#" class="fashion-logo">
+                      <div class="logo-main">OutfitXpert</div>
+                      <div class="logo-sub">Luxury</div>
+                    </a>
+                  </div>
+                <p>Quis nostrud exercitation ullamc boris nisi ut aliquip ex ea commodo conse.</p>
+                <div class="subscribe">
+                    <input type="email" placeholder="Your email here">
+                    <button><i class="fas fa-envelope"></i></button>
+                </div>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Address</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 20, Awesome Road, New York, USA 4D BS3</p>
+                <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                <p><i class="fas fa-envelope"></i> hello@OutfitXpert.com</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li>Shop Coupon</li>
+                    <li>About us</li>
+                    <li>Career</li>
+                    <li>Supports</li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Kids</li>
+                    <li>Accessories</li>
+                    <li>Bags</li>
+                    <li>Jewellery</li>
+                    <li>Cloths</li>
+                    <li>Beauty Items</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="payment-icons">
+                <img src="https://img.icons8.com/color/48/000000/paypal.png" />
+                <img src="https://img.icons8.com/color/48/000000/visa.png" />
+                <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                <img src="https://img.icons8.com/color/48/000000/apple-pay.png" />
+                <img src="https://img.icons8.com/color/48/000000/amazon.png" />
+            </div>
+            <div class="legal">
+                <p>All rights reserved <strong>OutfitXpert</strong> © 2025</p>
+                <div class="links">
+                    <a href="#">Terms & Condition</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
