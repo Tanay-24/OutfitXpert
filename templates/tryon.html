@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Try On - OutfitXpert</title>
+  <link rel="stylesheet" href="/static/tryon.css">
+  <script src="/static/tryon.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar" aria-label="Main navigation">
+          <div class="logo-container">
+            <a href="#" class="fashion-logo">
+              <div class="logo-main">OutfitXpert</div>
+              <div class="logo-sub">Luxury</div>
+            </a>
+          </div>
+          <ul class="nav-links">
+            <li><a href="#trends">Fashion Trends</a></li>
+            <li><a href="#tryon" id="tryonLink">Try On</a></li>
+            <li><a href="#filters">Filter</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="user-profile" data-username="{{ username }}"></div>
+        </nav>
+      </header>
+      
+<!-- ===== TRY-ON SECTION ===== -->
+<h1 style="text-align: center;">OutfitXpert Try-On</h1>
+
+    <div class="form-wrapper">
+        <form id="styleForm" method="POST" action="/tryon" enctype="multipart/form-data">
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <label for="category">Fashion Category:</label>
+            <select id="category" name="category" onchange="fetchOptions()">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="children">Children</option>
+                <option value="girls">Girls</option>
+                <option value="boys">Boys</option>
+            </select>
+
+            <label for="change">Choose What to Style:</label>
+            <select id="change" name="change" onchange="updateStyleSections()">
+                <option value="Shirt only">Shirt only</option>
+                <option value="Pants only">Pants only</option>
+                <option value="Shirt and Pants">Shirt and Pants</option>
+                <option value="Jacket only">Jacket only</option>
+                <option value="Hat only">Hat only</option>
+                <option value="Shirt, Pants, Jacket and Hat">Shirt, Pants, Jacket and Hat</option>
+            </select>
+
+            <div id="style-options">
+                <div id="shirt-style" class="style-block" style="display:none;">
+                    <h3>Shirt Styling</h3>
+                    <label for="shirt_color">Color:</label>
+                    <select id="shirt_color" name="shirt_color"></select>
+
+                    <label for="shirt_pattern">Pattern:</label>
+                    <select id="shirt_pattern" name="shirt_pattern"></select>
+
+                    <label for="shirt_type">Type:</label>
+                    <select id="shirt_type" name="shirt_type"></select>
+                </div>
+
+                <div id="pants-style" class="style-block" style="display:none;">
+                    <h3>Pants Styling</h3>
+                    <label for="pants_color">Color:</label>
+                    <select id="pants_color" name="pants_color"></select>
+
+                    <label for="pants_pattern">Pattern:</label>
+                    <select id="pants_pattern" name="pants_pattern"></select>
+
+                    <label for="pants_type">Type:</label>
+                    <select id="pants_type" name="pants_type"></select>
+                </div>
+
+                <div id="jacket-style" class="style-block" style="display:none;">
+                    <h3>Jacket Styling</h3>
+                    <label for="jacket_color">Color:</label>
+                    <select id="jacket_color" name="jacket_color"></select>
+
+                    <label for="jacket_pattern">Pattern:</label>
+                    <select id="jacket_pattern" name="jacket_pattern"></select>
+
+                    <label for="jacket_type">Type:</label>
+                    <select id="jacket_type" name="jacket_type"></select>
+                </div>
+
+                <div id="hat-style" class="style-block" style="display:none;">
+                    <h3>Hat Styling</h3>
+                    <label for="hat_color">Color:</label>
+                    <select id="hat_color" name="hat_color"></select>
+
+                    <label for="hat_pattern">Pattern:</label>
+                    <select id="hat_pattern" name="hat_pattern"></select>
+
+                    <label for="hat_type">Type:</label>
+                    <select id="hat_type" name="hat_type"></select>
+                </div>
+            </div>
+
+            <button type="submit">Generate Style</button>
+        </form>
+
+        <div class="output-section">
+            {% if output_image_path %}
+            <h4>{{ message }}</h4>
+            <img src="{{ output_image_path }}" alt="Styled Image">
+            <a href="/download/{{ output_filename }}">
+                <button>Download Output</button>
+            </a>
+            {% else %}
+            <p>No output image yet. Submit the form to generate an outfit.</p>
+            {% endif %}
+        </div>
+    </div>
+
+ <!-- ===== FOOTER ===== -->
+ <footer class="footer">
+  <div class="footer-container">
+      <div class="footer-column">
+        <div class="logo-container">
+          <a href="#" class="fashion-logo">
+            <div class="logo-main">OutfitXpert</div>
+            <div class="logo-sub">Luxury</div>
+          </a>
+        </div>
+          <p>Quis nostrud exercitation ullamc boris nisi ut aliquip ex ea commodo conse.</p>
+          <div class="subscribe">
+              <input type="email" placeholder="Your email here">
+              <button><i class="fas fa-envelope"></i></button>
+          </div>
+          <div class="social-icons">
+              <i class="fab fa-facebook-f"></i>
+              <i class="fab fa-twitter"></i>
+              <i class="fab fa-linkedin-in"></i>
+              <i class="fab fa-instagram"></i>
+          </div>
+      </div>
+
+      <div class="footer-column">
+          <h4>Address</h4>
+          <p><i class="fas fa-map-marker-alt"></i> 20, Awesome Road, New York, USA 4D BS3</p>
+          <p><i class="fas fa-phone"></i> +123 456 7890</p>
+          <p><i class="fas fa-envelope"></i> hello@OutfitXpert.com</p>
+      </div>
+
+      <div class="footer-column">
+          <h4>Useful Links</h4>
+          <ul>
+              <li>Shop Coupon</li>
+              <li>About us</li>
+              <li>Career</li>
+              <li>Supports</li>
+          </ul>
+      </div>
+
+      <div class="footer-column">
+          <h4>Categories</h4>
+          <ul>
+              <li>Men</li>
+              <li>Women</li>
+              <li>Kids</li>
+              <li>Accessories</li>
+              <li>Bags</li>
+              <li>Jewellery</li>
+              <li>Cloths</li>
+              <li>Beauty Items</li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="footer-bottom">
+      <div class="payment-icons">
+          <img src="https://img.icons8.com/color/48/000000/paypal.png" />
+          <img src="https://img.icons8.com/color/48/000000/visa.png" />
+          <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+          <img src="https://img.icons8.com/color/48/000000/apple-pay.png" />
+          <img src="https://img.icons8.com/color/48/000000/amazon.png" />
+      </div>
+      <div class="legal">
+          <p>All rights reserved <strong>OutfitXpert</strong> © 2025</p>
+          <div class="links">
+              <a href="#">Terms & Condition</a>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Legal</a>
+          </div>
+      </div>
+  </div>
+</footer>
+</body>
+</html>

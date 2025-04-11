@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to OutfitXpert</title>
+  <link rel="stylesheet" href="/static/welcome.css">
+  <script src="/static/welcome.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="logo-container">
+                <a href="#" class="fashion-logo">
+                  <div class="logo-main">OutfitXpert</div>
+                  <div class="logo-sub">Luxury</div>
+                </a>
+              </div>
+          <ul class="nav-links">
+            <li><a href="#trends">Fashion Trends</a></li>
+            <li><a href="#tryon" id="tryonLink">Try On</a></li>
+            <li><a href="#review">Review</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="user-profile" data-username="{{ username }}">
+            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="User Avatar" />
+  <span class="username"></span>
+  <div class="dropdown-menu">
+    <button id="logoutBtn">Logout</button>
+  </div>
+  </div>
+          </div>
+        </nav>
+      </header>
+    
+      <!-- ===== HERO SECTION ===== -->
+      <div class="hero-section">
+        <div class="hero-content">
+          <p class="tagline">SUMMER SALE IS ON</p>
+          <h1>Discover Women’s<br>Fashion Trend</h1>
+          <a href="/" class="hero-button">Explore Now</a>
+        </div>
+        <div class="hero-nav left"><</div>
+        <div class="hero-nav right">></div>
+        <div class="hero-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+
+      <!-- ===== TRY-ON SECTION ===== -->
+      <section id="tryon" class="tryon-category">
+        <h2>Try On Categories</h2>
+        <p>Explore styles and try them virtually in one click</p>
+      
+        <div class="category-slider">
+          <div class="category-card">
+            <div class="circle"><a href="/tryon">Shirts</a></div>
+            <h4>Shirts</h4>
+            <p>120 Items</p>
+          </div>
+          <div class="category-card">
+            <div class="circle"><a href="/tryon">T-Shirts</a></div>
+            <h4>T-Shirts</h4>
+            <p>89 Items</p>
+          </div>
+          <div class="category-card">
+            <div class="circle"><a href="/tryon">Pants</a></div>
+            <h4>Pants</h4>
+            <p>104 Items</p>
+          </div>
+          <div class="category-card">
+            <div class="circle"><a href="/tryon">Dresses</a></div>
+            <h4>Dresses</h4>
+            <p>76 Items</p>
+          </div>
+          <div class="category-card">
+            <div class="circle"><a href="/tryon">Jackets</a></div>
+            <h4>Jackets</h4>
+            <p>58 Items</p>
+          </div>
+        </div>
+      
+        <div class="slider-controls">
+          <button class="slider-btn"><</button>
+          <button class="slider-btn">></button>
+        </div>
+      </section>
+      
+      <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="review">
+        <h2>What Customers Say</h2>
+        <p>Showing our latest arrival on this summer</p>
+
+        <div class="testimonial-cards">
+            <div class="card">
+                <div class="quote">“</div>
+                <div class="stars">★★★★★</div>
+                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Sanjida Ema</strong><br>
+                        <small>Journalist</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="quote">“</div>
+                <div class="stars">★★★★★</div>
+                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Mike Anderson</strong><br>
+                        <small>Web Developer</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="quote">“</div>
+                <div class="stars">★★★★☆</div>
+                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                <div class="profile">
+                    <div class="avatar">U</div>
+                    <div>
+                        <strong>Nelson Rich</strong><br>
+                        <small>Designer</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav prev">‹</button>
+            <button class="nav next">›</button>
+        </div>
+
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="logo-container">
+                    <a href="#" class="fashion-logo">
+                      <div class="logo-main">OutfitXpert</div>
+                      <div class="logo-sub">Luxury</div>
+                    </a>
+                  </div>
+                <p>Quis nostrud exercitation ullamc boris nisi ut aliquip ex ea commodo conse.</p>
+                <div class="subscribe">
+                    <input type="email" placeholder="Your email here">
+                    <button><i class="fas fa-envelope"></i></button>
+                </div>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Address</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 20, Awesome Road, New York, USA 4D BS3</p>
+                <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                <p><i class="fas fa-envelope"></i> hello@OutfitXpert.com</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li>Shop Coupon</li>
+                    <li>About us</li>
+                    <li>Career</li>
+                    <li>Supports</li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li>Men</li>
+                    <li>Women</li>
+                    <li>Kids</li>
+                    <li>Accessories</li>
+                    <li>Bags</li>
+                    <li>Jewellery</li>
+                    <li>Cloths</li>
+                    <li>Beauty Items</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="payment-icons">
+                <img src="https://img.icons8.com/color/48/000000/paypal.png" />
+                <img src="https://img.icons8.com/color/48/000000/visa.png" />
+                <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                <img src="https://img.icons8.com/color/48/000000/apple-pay.png" />
+                <img src="https://img.icons8.com/color/48/000000/amazon.png" />
+            </div>
+            <div class="legal">
+                <p>All rights reserved <strong>OutfitXpert</strong> © 2025</p>
+                <div class="links">
+                    <a href="#">Terms & Condition</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
