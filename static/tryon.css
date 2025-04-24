@@ -305,6 +305,53 @@ button:hover {
     max-width: 1200px;
     margin: auto;
 }
+/* Styling for Recommended Outfits */
+.recommended-section {
+  margin-top: 40px;
+}
+
+.recommended-images {
+  display: flex;
+  flex-wrap: nowrap;  /* Ensures that images are in a single row */
+  overflow-x: auto;   /* Enables horizontal scrolling */
+  gap: 20px;          /* Adds space between the images */
+  padding: 20px 0;    /* Adds padding for better spacing */
+}
+
+.recommended-item {
+  flex-shrink: 0;     /* Prevents images from shrinking */
+  width: 200px;       /* Fixed width for each image */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.recommended-item img {
+  width: 100%;
+  height: auto;         /* Maintains the aspect ratio of the image */
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.recommended-item img:hover {
+  transform: scale(1.05);
+}
+
+.recommended-item button {
+  margin-top: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.recommended-item button:hover {
+  background-color: #0056b3;
+}
+
 
   /* ===== FOOTER ===== */
 /* ===== FOOTER (With Luxury Logo Fit) ===== */
