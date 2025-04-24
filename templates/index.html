@@ -42,9 +42,9 @@
             </div>
             <form id="loginForm" class="form active-form">
                 <div class="social-login">
-                    <button type="button" class="google-btn">
+                    <button type="button" class="google-btn" onclick="window.location.href='/login/google'">
                         <i class="fab fa-google"></i> Continue with Google
-                    </button>
+                    </button>                    
                     <button type="button" class="facebook-btn">
                         <i class="fab fa-facebook-f"></i> Continue with Facebook
                     </button>
@@ -83,7 +83,7 @@
                     <button class="cta-button">Try Now</button>
                 </div>
                 <div class="hero-image interactive-hero">
-                    <img src="https://images.unsplash.com/photo-1612423284934-74979bc9f93e?auto=format&fit=crop&w=800&q=80" alt="AI styled fashion">
+                    <img src="https://images.pexels.com/photos/845434/pexels-photo-845434.jpeg?auto=format&fit=crop&w=800&q=80" alt="AI styled fashion">
                 </div>
             </div>
     
@@ -96,7 +96,7 @@
                     <button class="cta-button">Explore Collection</button>
                 </div>
                 <div class="hero-image interactive-hero">
-                    <img src="https://images.unsplash.com/photo-1618354691249-7a6b4edb4034?auto=format&fit=crop&w=800&q=80" alt="Smart outfit preview">
+                    <img src="https://images.unsplash.com/photo-1550995694-3f5f4a7e1bd2?auto=format&fit=crop&w=800&q=80" alt="Smart outfit preview">
                 </div>
             </div>
     
@@ -109,7 +109,7 @@
                     <button class="cta-button">Recreate Style</button>
                 </div>
                 <div class="hero-image interactive-hero">
-                    <img src="https://images.unsplash.com/photo-1593032457869-b0c948ef4e7b?auto=format&fit=crop&w=800&q=80" alt="Celebrity inspired fashion">
+                    <img src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=format&fit=crop&w=800&q=80" alt="Celebrity inspired fashion">
                 </div>
             </div>
     
@@ -152,24 +152,25 @@
         <h2 id="filters-heading">Customize Your Look</h2>
         <div
             style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; padding: 20px; max-width: 1200px; margin: auto;">
+            
             {% if message %}
             <div style="color: red; font-weight: bold; margin-bottom: 15px;">
                 {{ message }}
             </div>
             {% endif %}
-
+    
             <form action="/" method="post" enctype="multipart/form-data"
                 style="flex: 1; min-width: 300px; max-width: 500px;">
                 <label for="image">Upload Your Image:</label>
                 <input type="file" name="image" accept="image/*" required>
-
+    
                 <label for="change">Change:</label>
                 <select name="change" required>
                     {% for option in change_options %}
                     <option value="{{ option }}">{{ option }}</option>
                     {% endfor %}
                 </select>
-
+    
                 <h4>Shirt Options</h4>
                 <label for="shirt_color">Color:</label>
                 <select name="shirt_color" required>
@@ -177,21 +178,21 @@
                     <option value="{{ color }}">{{ color }}</option>
                     {% endfor %}
                 </select>
-
+    
                 <label for="shirt_pattern">Pattern:</label>
                 <select name="shirt_pattern" required>
                     {% for pattern in pattern_options %}
                     <option value="{{ pattern }}">{{ pattern }}</option>
                     {% endfor %}
                 </select>
-
+    
                 <label for="shirt_type">Type:</label>
                 <select name="shirt_type" required>
                     {% for t in type_options %}
                     <option value="{{ t }}">{{ t }}</option>
                     {% endfor %}
                 </select>
-
+    
                 <h4>Pant Options</h4>
                 <label for="pant_color">Color:</label>
                 <select name="pant_color" required>
@@ -199,103 +200,96 @@
                     <option value="{{ color }}">{{ color }}</option>
                     {% endfor %}
                 </select>
-
+    
                 <label for="pant_pattern">Pattern:</label>
                 <select name="pant_pattern" required>
                     {% for pattern in pattern_options %}
                     <option value="{{ pattern }}">{{ pattern }}</option>
                     {% endfor %}
                 </select>
-
+    
                 <label for="pant_type">Type:</label>
                 <select name="pant_type" required>
                     {% for t in type_options %}
                     <option value="{{ t }}">{{ t }}</option>
                     {% endfor %}
                 </select>
-
-                <button type="submit">Generate Outfit</button>
+    
+                <button type="submit" class="generate-btn">Generate Outfit</button>
             </form>
-
+    
             <div id="loader" class="spinner" style="display: none; margin-top: 20px;"></div>
 
             <div style="flex: 1; min-width: 300px; max-width: 500px; text-align: center;">
-                <h4>Generated Output</h4>
+                <h4>Generated Outfit</h4>
                 {% if output_image_path %}
-                <img src="{{ output_image_path }}" alt="Generated Outfit"
-                    style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;">
-                <br />
-                <a href="/download/{{ output_filename }}">
-                    <button>Download Output</button>
-                </a>
+                <div class="selected-image-container" style="position: relative; display: inline-block; max-width: 100%;">
+                    <!-- Your uploaded image -->
+                    <img src="{{ output_image_path }}" alt="Uploaded Image" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                    
+                    <!-- Download button (hidden by default, appears on hover) -->
+                    <!--<button class="download-btn" onclick="window.location.href='{{ output_image_path }}'">
+                        Download
+                    </button>-->
+                </div>
                 {% else %}
-                <p>No output image yet. Submit the form to generate an outfit.</p>
+                <p>No image selected yet. Upload your image to see a preview.</p>
                 {% endif %}
-            </div>
-        </div>
-    </section>
+            </div>            
+    </div>
 
+    <!-- Displaying the recommended outfit variations -->
+    {% if output_image_paths %}
+    <h2>Recommended:</h2>
+    <div>
+        {% for img_path in output_image_paths %}
+        <div class="generated-outfit">
+            <img src="{{ img_path }}" alt="Generated Outfit">
+            <a href="/download/{{ img_path.split('/')[-1] }}">
+                <button class="download-btn">Download</button>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    </section>
+    
     <!-- ===== TESTIMONIALS ===== -->
     <section class="testimonials" id="review">
-        <h2>What Customers Say</h2>
-        <p>Showing our latest arrival on this summer</p>
-
-        <div class="testimonial-cards">
-            <div class="card">
-                <div class="quote">“</div>
-                <div class="stars">★★★★★</div>
-                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.</p>
-                <div class="profile">
-                    <div class="avatar">U</div>
-                    <div>
-                        <strong>Sanjida Ema</strong><br>
-                        <small>Journalist</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="quote">“</div>
-                <div class="stars">★★★★★</div>
-                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.</p>
-                <div class="profile">
-                    <div class="avatar">U</div>
-                    <div>
-                        <strong>Mike Anderson</strong><br>
-                        <small>Web Developer</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="quote">“</div>
-                <div class="stars">★★★★☆</div>
-                <p>Lorem ipsum dolor sit amet, conseet eotur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua.</p>
-                <div class="profile">
-                    <div class="avatar">U</div>
-                    <div>
-                        <strong>Nelson Rich</strong><br>
-                        <small>Designer</small>
-                    </div>
-                </div>
-            </div>
+        <h2>What Our Users Say</h2>
+      
+        <div class="card active">
+          <p>"Amazing platform! Helped me find the best fashion matches for my style. Super intuitive."</p>
+          <div class="profile">
+            <div class="avatar">TP</div>
+            <div class="name">Tanay Puranik</div>
+          </div>
         </div>
-
-        <div class="nav-buttons">
-            <button class="nav prev">‹</button>
-            <button class="nav next">›</button>
+      
+        <div class="card">
+          <p>"The AI recommendations are top-notch! Felt like I had a personal stylist. Love it!"</p>
+          <div class="profile">
+            <div class="avatar">AS</div>
+            <div class="name">Aisha Sato</div>
+          </div>
         </div>
-
+      
+        <div class="card">
+          <p>"Best outfit preview tool I've ever used. Clean design and easy to use. Highly recommend."</p>
+          <div class="profile">
+            <div class="avatar">MK</div>
+            <div class="name">Mehul Kapoor</div>
+          </div>
+        </div>
+      
+        <!-- Centered Dots -->
         <div class="dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
         </div>
-    </section>
-
+      </section>      
+      
     <!-- ===== FOOTER ===== -->
     <!-- Footer Start -->
     <footer class="footer" id="contact">
