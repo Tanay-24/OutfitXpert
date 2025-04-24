@@ -1,34 +1,17 @@
-/* ===== VARIABLES ===== */
-:root {
-    --primary: #6C63FF;
-    --secondary: #FF6584;
-    --dark: #1E1E2C;
-    --light: #F9F9FF;
-    --transition: all 0.3s ease;
-}
-
-/* ===== BASE STYLES ===== */
-/* Hides the vertical scrollbar in WebKit-based browsers (Chrome, Safari, Edge) */
-body::-webkit-scrollbar {
-    width: 0px;  /* Hides the vertical scrollbar */
-}
-
-/* Hides the vertical scrollbar in Internet Explorer and Edge */
+/* GLOBAL STYLES */
 body {
-    -ms-overflow-style: none;  /* Hides scrollbar in IE/Edge */
-    scrollbar-width: none;     /* Hides scrollbar in Firefox */
-    overflow-y: scroll;        /* Enables scroll functionality without showing scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
     font-family: 'Poppins', sans-serif;
-    background: var(--light);  /* Assuming --light is defined elsewhere in your CSS */
-    color: var(--dark);        /* Assuming --dark is defined elsewhere in your CSS */
+    background: linear-gradient(135deg, #f8f9fc, #f2f4f8);
+    color: #333;
     line-height: 1.6;
 }
 
-/* Firefox specific styles */
 html {
-    scroll-behavior: smooth;   /* Optional: smooth scrolling in Firefox */
+    scroll-behavior: smooth;
 }
-
 
 /* ===== NAVBAR ===== */
 .navbar {
@@ -36,11 +19,12 @@ html {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
 .nav-links {
@@ -49,22 +33,42 @@ html {
 }
 
 .nav-links a {
-    color: var(--dark);
+    color: #5e5873;
     font-weight: 600;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    position: relative;
+    text-decoration: none;  /* Ensures no underline by default */
+}
+
+/* Apply underline on hover */
+.nav-links a::after {
+    content: ''; /* Creates a pseudo-element */
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #9c27b0;  /* Purple underline color */
+    transition: width 0.3s ease;  /* Smooth transition for the width */
+}
+
+.nav-links a:hover::after {
+    width: 100%; /* On hover, expand the width to 100% */
 }
 
 .nav-links a:hover {
-    color: var(--primary);
+    color: #9c27b0;  /* Color change for hover effect */
 }
-/* Fit the logo nicely within the navbar */
+
+/* Navbar logo */
 .navbar .logo-container {
-    max-width: 200px;        /* Shrink the container inside navbar */
-    padding: 8px 16px;       /* Smaller padding for navbar height */
-    transform: scale(0.6);   /* Scales down logo visually without altering design */
-    transform-origin: left;  /* Keeps logo aligned to the left side */
+    max-width: 200px;
+    padding: 8px 16px;
+    transform: scale(0.6);
+    transform-origin: left;
     margin: 0;
-  }
+}
+
   
 /* ===== LUXURY FASHION LOGO CSS ===== */
 .logo-container {
@@ -142,19 +146,19 @@ html {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(30, 30, 60, 0.7);
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.4s ease-in-out;
 }
 
 .login-box {
-    background: #fff;
+    background: linear-gradient(135deg, #ffffff, #f1e9ff);
     padding: 40px 30px;
-    border-radius: 16px;
+    border-radius: 20px;
     max-width: 420px;
     width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
     position: relative;
     text-align: center;
     animation: slideIn 0.4s ease;
@@ -174,34 +178,44 @@ html {
 
 .login-box h2 {
     margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #333;
+    font-size: 2rem;
+    color: #5e3f80;
+    font-weight: 700;
 }
 
+/* ===== Form Inputs and Buttons ===== */
 .login-box input {
     width: 100%;
-    padding: 12px 14px;
-    margin: 10px 0;
+    padding: 14px;
+    margin: 12px 0;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+.login-box input:focus {
+    border-color: #a259ff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(162, 89, 255, 0.2);
 }
 
 .login-box button {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background-color: #111;
+    padding: 14px;
+    margin-top: 15px;
+    background: linear-gradient(to right, #9c27b0, #7b1fa2);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .login-box button:hover {
-    background-color: #333;
+    background: linear-gradient(to right, #7b1fa2, #9c27b0);
+    transform: scale(1.02);
 }
 
 .close-btn {
@@ -218,6 +232,7 @@ html {
     color: #000;
 }
 
+/* Toggle between login/signup */
 .form-toggle {
     display: flex;
     justify-content: center;
@@ -238,8 +253,8 @@ html {
 }
 
 .form-toggle button.active {
-    color: #111;
-    border-color: #111;
+    color: #7b1fa2;
+    border-color: #7b1fa2;
 }
 
 .form {
@@ -251,36 +266,43 @@ html {
     display: block;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== Social Buttons ===== */
 .social-login {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .google-btn,
 .facebook-btn {
-    padding: 10px;
+    padding: 12px;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     font-size: 0.95rem;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .google-btn {
-    background: #fff;
-    border: 1px solid #ddd;
-    color: #444;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    color: #333;
 }
 
 .google-btn:hover {
     background: #f5f5f5;
+    transform: translateY(-2px);
 }
 
 .facebook-btn {
@@ -289,7 +311,8 @@ html {
 }
 
 .facebook-btn:hover {
-    background: #334d84;
+    background: #2d4373;
+    transform: translateY(-2px);
 }
 
 .form-divider {
@@ -311,12 +334,14 @@ html {
 }
 
 .forgot-link {
-    color: #0077ff;
+    color: #7b1fa2;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
 .forgot-link:hover {
     text-decoration: underline;
+    color: #9c27b0;
 }
 
 .form-error {
@@ -329,9 +354,10 @@ html {
 
 /* ===== HERO SECTION ===== */
 .hero-section {
-    overflow: hidden; /* hide scrollbar */
+    overflow: hidden;
     position: relative;
     width: 100%;
+    background: linear-gradient(135deg, #fff0f5, #f5f5ff);
 }
 
 .hero-container {
@@ -353,6 +379,36 @@ html {
 
 .hero-content {
     flex: 1;
+    animation: fadeInLeft 1s ease forwards;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content .get-started-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: 0 8px 20px rgba(123, 47, 247, 0.3);
+}
+
+.hero-content .get-started-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 12px 28px rgba(241, 7, 163, 0.4);
 }
 
 .hero-image {
@@ -366,8 +422,23 @@ html {
 .hero-image img {
     width: 100%;
     height: auto;
-    transition: transform 0.3s ease-out;
+    transition: transform 0.5s ease;
     will-change: transform;
+}
+
+.hero-image:hover img {
+    transform: scale(1.05) rotateZ(1deg);
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 
@@ -376,6 +447,8 @@ html {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    padding: 50px 10%;
+    background: #fafaff;
 }
 
 .trend-card {
@@ -384,25 +457,38 @@ html {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
+    transform: scale(1);
 }
 
 .trend-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.trend-card img {
+    width: 100%;
+    transition: transform 0.4s ease-in-out;
+}
+
+.trend-card:hover img {
+    transform: scale(1.1);
 }
 
 /* ===== FILTER SECTION ===== */
+
 #filters {
-    background-color: var(--light);
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     padding: 60px 20px;
     max-width: 1400px;
     margin: auto;
+    border-radius: 20px;
+    margin-top: 40px;
 }
 
 #filters h2 {
     text-align: center;
-    font-size: 2.2rem;
-    color: var(--primary);
+    font-size: 2.5rem;
+    color: #2a2a2a;
     margin-bottom: 40px;
 }
 
@@ -410,7 +496,7 @@ html {
     background-color: white;
     padding: 30px 25px;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
 }
 
@@ -418,56 +504,57 @@ html {
     display: block;
     margin: 15px 0 5px;
     font-weight: 600;
-    color: var(--dark);
+    color: #4a4a4a;
 }
 
 #filters form input[type="file"],
 #filters form select {
     width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 10px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
     background-color: #fff;
-    transition: var(--transition);
+    transition: border-color 0.3s ease;
 }
 
 #filters form select:focus,
 #filters form input[type="file"]:focus {
-    border-color: var(--primary);
+    border-color: #6a11cb;
     outline: none;
 }
 
 #filters h4 {
     margin-top: 20px;
     font-size: 1.2rem;
-    color: var(--secondary);
-    border-bottom: 2px solid var(--secondary);
+    color: #2a2a2a;
+    border-bottom: 2px solid #6a11cb;
     padding-bottom: 5px;
 }
 
 #filters button[type="submit"] {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: #fff;
-    padding: 12px 20px;
+    padding: 14px 24px;
     border: none;
     border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-top: 20px;
     width: 100%;
+    font-size: 1.1rem;
 }
 
 #filters button[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
 }
 
 #filters .spinner {
     border: 4px solid #f3f3f3;
-    border-top: 4px solid var(--primary);
+    border-top: 4px solid #6a11cb;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -488,148 +575,283 @@ html {
 #filters img {
     border-radius: 16px;
     max-width: 100%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+#filters img:hover {
+    transform: scale(1.05);
 }
 
 #filters a button {
-    background: var(--dark);
+    background: #6a11cb;
     color: white;
-    padding: 10px 16px;
+    padding: 12px 18px;
     border-radius: 8px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 1rem;
     margin-top: 15px;
-    transition: var(--transition);
+    transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 #filters a button:hover {
-    background: var(--primary);
+    background: #2575fc;
 }
+
+/* Style for the main buttons */
+.generate-btn {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.generate-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
+}
+
+/* Layout changes */
+@media (max-width: 768px) {
+    #filters {
+        padding: 40px 15px;
+    }
+
+    #filters form {
+        min-width: 100%;
+    }
+
+    #filters h2 {
+        font-size: 2rem;
+    }
+
+    #filters h4 {
+        font-size: 1.1rem;
+    }
+}
+
+/* New CSS for download button on hover in the selected image container */
+.selected-image-container {
+    position: relative;
+    display: inline-block;
+    max-width: 100%; /* Ensure it does not exceed available width */
+    margin: 10px;
+}
+
+.selected-image-container img {
+    width: 100%; /* Prevents the image from getting too large */
+    max-width: 300px; /* Set max width for consistent size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 16px;
+}
+
+.selected-image-container:hover .download-btn {
+    opacity: 1;  /* Shows the download button on hover */
+    visibility: visible;  /* Make the button visible */
+}
+
+.download-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;  /* Initially hidden */
+    visibility: hidden;  /* Initially hidden */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+/* New CSS for download button on hover in the generated image container */
+.generated-outfit {
+    position: relative;
+    display: inline-block;
+    max-width: 100%; /* Ensure it does not exceed available width */
+    margin: 10px;
+}
+
+.generated-outfit img {
+    width: 100%; /* Prevents the image from getting too large */
+    max-width: 300px; /* Set max width for consistent size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 16px;
+}
+
+.generated-outfit:hover .download-btn {
+    opacity: 1;  /* Shows the download button on hover */
+    visibility: visible;  /* Makes the button visible */
+}
+
+
 
 
 /* ===== BUTTONS ===== */
 .cta-button {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2); /* Updated gradient to match the color theme */
     color: white;
     padding: 12px 24px;
     border: none;
     border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    transition: all 0.3s ease; /* Updated transition for consistency */
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3); /* Softer box-shadow */
 }
 
 .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+    transform: translateY(-3px); /* Same hover effect as navbar links */
+    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4); /* Slightly stronger shadow for hover */
+}
+
+.cta-button:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(162, 89, 255, 0.3); /* Focus effect similar to form inputs */
 }
 
 /* ===== TESTIMONIAL CAROUSEL ===== */
+/* Section background */
 .testimonials {
+    background: linear-gradient(135deg, #f0f9ff, #dbeafe);
+    padding: 80px 40px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
     text-align: center;
-    padding: 60px 20px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-.testimonials h2 {
-    font-size: 32px;
-    color: #333;
-}
-
-.testimonials p {
-    color: #666;
-    margin-bottom: 40px;
-}
-
-.testimonial-cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.card {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 30px;
-    width: 300px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
-}
-
-.quote {
-    font-size: 30px;
-    color: #80aeb1;
-    margin-bottom: 10px;
-}
-
-.stars {
-    color: orange;
-    margin-bottom: 15px;
-}
-
-.card p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    background: #ccc;
+  }
+  
+  /* Decorative glowing circles */
+  .testimonials::before,
+  .testimonials::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: radial-gradient(circle, #93c5fd 0%, transparent 70%);
+    z-index: 0;
+  }
+  
+  .testimonials::before {
+    top: -100px;
+    left: -100px;
+  }
+  
+  .testimonials::after {
+    bottom: -100px;
+    right: -100px;
+  }
+  
+  .testimonials * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Section title */
+  .testimonials h2 {
+    font-size: 36px;
     font-weight: bold;
-}
-
-.nav-buttons {
-    margin-top: 30px;
-}
-
-.nav {
-    border: 1px solid #cdd8d9;
+    color: #1e3a8a;
+    margin-bottom: 30px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Testimonial cards */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    max-width: 700px;
+    margin: 0 auto;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    display: none;
+  }
+  
+  .card.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Text and profile styling */
+  .card p {
+    font-size: 18px;
+    color: #374151;
+    line-height: 1.8;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 30px;
+  }
+  
+  .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+    background: #e0f2fe;
     border-radius: 50%;
-    padding: 10px 15px;
-    background: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 0 5px;
-    color: #80aeb1;
-}
-
-.dots {
-    margin-top: 20px;
-}
-
-.dot {
-    height: 10px;
-    width: 10px;
-    margin: 0 3px;
-    background-color: #dcdcdc;
+    font-weight: 600;
+    color: #0284c7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .name {
+    font-weight: bold;
+    color: #1e3a8a;
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Centered dots */
+  .dots {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 6px;
+    background-color: #cbd5e1;
     border-radius: 50%;
     display: inline-block;
-}
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .dot.active {
+    background-color: #3b82f6;
+  }
+  
 
-.dot.active {
-    background-color: #80aeb1;
-}
-
-/* ===== FOOTER ===== */
-/* ===== FOOTER (With Luxury Logo Fit) ===== */
+/* ===== FOOTER (Light Pastel Style) ===== */
 .footer {
-    background-color: #4A575B;
-    color: white;
+    background: linear-gradient(135deg, #fef9ff, #eaf2ff);
+    color: #333;
     padding: 40px 20px 20px;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .footer-container {
@@ -644,21 +866,24 @@ html {
     min-width: 220px;
 }
 
-/* Ensures logo doesn't overflow and scales inside footer */
 .footer .logo-container {
     max-width: 220px;
     padding: 10px 15px;
     border-radius: 15px;
-    transform: scale(0.8);
+    transform: scale(0.9); /* Slight increase for balance */
     transform-origin: top left;
     margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* Soft backdrop */
 }
 
+/* Headings */
 .footer-column h4 {
-    margin-bottom: 10px;
-    color: #fff;
+    margin-bottom: 12px;
+    color: #5c2a9d;
+    font-weight: 600;
 }
 
+/* List */
 .footer-column ul {
     list-style: none;
     padding: 0;
@@ -668,13 +893,21 @@ html {
 .footer-column ul li {
     margin-bottom: 8px;
     cursor: pointer;
+    color: #555;
+    transition: color 0.3s;
 }
 
+.footer-column ul li:hover {
+    color: #5c2a9d;
+}
+
+/* Logo */
 .logo {
-    width: 80px;
+    width: 90px;
     margin-bottom: 10px;
 }
 
+/* Subscribe box */
 .subscribe {
     display: flex;
     margin-top: 10px;
@@ -682,19 +915,27 @@ html {
 
 .subscribe input {
     padding: 10px;
-    border: none;
+    border: 1px solid #ddd;
     border-radius: 5px 0 0 5px;
     flex: 1;
+    background-color: #fff;
 }
 
 .subscribe button {
     padding: 10px;
-    background-color: #e0e0e0;
+    background-color: #a56cc1;
+    color: white;
     border: none;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
+.subscribe button:hover {
+    background-color: #7e45a3;
+}
+
+/* Social Icons */
 .social-icons {
     margin-top: 15px;
 }
@@ -702,8 +943,17 @@ html {
 .social-icons i {
     margin-right: 15px;
     cursor: pointer;
+    color: #7b6be6;
+    font-size: 20px;
+    transition: transform 0.3s, color 0.3s;
 }
 
+.social-icons i:hover {
+    color: #d94fb5;
+    transform: scale(1.1);
+}
+
+/* Footer bottom section */
 .footer-bottom {
     border-top: 1px solid #ccc;
     margin-top: 30px;
@@ -712,13 +962,17 @@ html {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    color: #666;
+    font-size: 14px;
 }
 
+/* Payment Icons */
 .payment-icons img {
     width: 40px;
     margin-right: 10px;
 }
 
+/* Legal Links */
 .legal {
     text-align: right;
 }
@@ -730,14 +984,19 @@ html {
 .legal .links a {
     margin-left: 20px;
     text-decoration: none;
-    color: #ccc;
+    color: #7a7a7a;
+    transition: color 0.3s;
 }
 
 .legal .links a:hover {
-    color: #fff;
+    color: #5c2a9d;
 }
 
-/* ===== ANIMATIONS ===== */
+/* Animation */
+.section {
+    animation: fadeIn 1s ease forwards;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -748,8 +1007,4 @@ html {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.section {
-    animation: fadeIn 1s ease forwards;
 }
