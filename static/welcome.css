@@ -1,240 +1,146 @@
+/* ===== HEADER / NAVBAR ===== */
 .header {
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  /* Fit the logo nicely within the navbar */
-.navbar .logo-container {
-  max-width: 200px;        /* Shrink the container inside navbar */
-  padding: 8px 16px;       /* Smaller padding for navbar height */
-  transform: scale(0.6);   /* Scales down logo visually without altering design */
-  transform-origin: left;  /* Keeps logo aligned to the left side */
-  margin: 0;
-}
-
-/* ===== LUXURY FASHION LOGO CSS ===== */
-.logo-container {
-display: flex;
-justify-content: center;
-align-items: center;
-background: linear-gradient(135deg, #fff5f5 0%, #f8e1e4 100%);
-padding: 30px;
-border-radius: 20px;
-box-shadow: 0 10px 30px rgba(255, 105, 140, 0.2);
-max-width: 400px;
-margin: 0;
-}
-
-.fashion-logo {
-font-family: 'Playfair Display', serif;
-text-align: center;
-position: relative;
-padding: 20px 0;
-text-decoration: none;
-}
-
-.logo-main {
-font-size: 48px;
-font-weight: 700;
-color: #d23c77;
-letter-spacing: 1px;
-margin-bottom: 5px;
-text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-}
-
-.logo-sub {
-font-family: 'Montserrat', sans-serif;
-font-size: 14px;
-letter-spacing: 8px;
-color: #8a6e8b;
-text-transform: uppercase;
-margin-top: -5px;
-position: relative;
-}
-
-.logo-sub:before {
-content: "";
-position: absolute;
-top: -15px;
-left: 50%;
-transform: translateX(-50%);
-width: 60px;
-height: 20px;
-background: url("data:image/svg+xml,%3Csvg viewBox='0 0 60 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,10 Q15,-10 30,10 T60,10' stroke='%23d23c77' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat;
-}
-
-.logo-main:after {
-content: "✦";
-position: absolute;
-top: -5px;
-right: -10px;
-font-size: 16px;
-color: #ffd700;
-animation: glitter 2s infinite;
-}
-
-@keyframes glitter {
-0% { opacity: 0.3; }
-50% { opacity: 1; }
-100% { opacity: 0.3; }
-}
-
-.user-profile {
-  position: relative;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  z-index: 101; /* Ensure it stacks above other items */
 }
 
-.user-profile img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.username {
-  font-weight: 500;
-  color: #333;
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* Dropdown */
-.dropdown-menu {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  display: none;
-  flex-direction: column;
-  min-width: 120px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  z-index: 100;
-}
-
-.dropdown-menu button {
-  background: none;
-  border: none;
-  padding: 10px 15px;
-  text-align: left;
-  font-size: 14px;
-  cursor: pointer;
-  color: #d23c77;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
-.dropdown-menu button:hover {
-  background: #f8e1e4;
+/* ===== LOGO CONTAINER STYLING ===== */
+.navbar .logo-container {
+  max-width: 200px;
+  padding: 8px 16px;
+  transform: scale(0.6);
+  transform-origin: left;
+  margin: 0;
 }
 
-/* Show dropdown on profile click */
-.user-profile.show-dropdown .dropdown-menu {
+.logo-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fff5f5 0%, #f8e1e4 100%);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 105, 140, 0.2);
+  max-width: 400px;
+  margin: 0;
 }
 
-
-  /* FIX user profile alignment in navbar */
-.navbar .user-profile {
-  margin-left: 20px;
+.fashion-logo {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  position: relative;
+  padding: 20px 0;
+  text-decoration: none;
 }
 
-  .welcome-container {
-    text-align: center;
-    margin-top: 100px;
-  }
-  
-  .btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #333;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-  }
+.logo-main {
+  font-size: 48px;
+  font-weight: 700;
+  color: #d23c77;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  position: relative;
+}
 
+.logo-main:after {
+  content: "✦";
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 16px;
+  color: #ffd700;
+  animation: glitter 2s infinite;
+}
 
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  .user-profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: url('/static/user-icon.png') no-repeat center/cover;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .user-profile:hover::after {
-    content: attr(data-username);
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-  }
+.logo-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  letter-spacing: 8px;
+  color: #8a6e8b;
+  text-transform: uppercase;
+  margin-top: -5px;
+  position: relative;
+}
+
+.logo-sub:before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 60 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,10 Q15,-10 30,10 T60,10' stroke='%23d23c77' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat;
+}
+
+@keyframes glitter {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* ===== NAVIGATION LINKS ===== */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ===== USER PROFILE DROPDOWN ===== */
+.logout-container {
+  display: flex;
+  align-items: center;
+}
+
+#logoutBtn {
+  padding: 8px 16px;
+  background: #d23c77;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#logoutBtn:hover {
+  background: #b61f5c;
+}
+
+/* ===== WELCOME SECTION ===== */
+.welcome-container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
   
 /* ===== HERO SECTION ===== */
 .hero-section {
