@@ -29,95 +29,119 @@
 <!-- ===== TRY-ON SECTION ===== -->
 <h1 style="text-align: center;">OutfitXpert Try-On</h1>
 
-    <div class="form-wrapper">
-        <form id="styleForm" method="POST" action="/tryon" enctype="multipart/form-data">
-            <label for="image">Upload Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
+<div class="form-wrapper">
+    <form id="styleForm" method="POST" action="/tryon" enctype="multipart/form-data">
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
 
-            <label for="category">Fashion Category:</label>
-            <select id="category" name="category" onchange="fetchOptions()">
-                <option value="men">Men</option>
-                <option value="women">Women</option>
-                <option value="children">Children</option>
-                <option value="girls">Girls</option>
-                <option value="boys">Boys</option>
-            </select>
+        <label for="category">Fashion Category:</label>
+        <select id="category" name="category" onchange="fetchOptions()">
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+            <option value="children">Children</option>
+            <option value="girls">Girls</option>
+            <option value="boys">Boys</option>
+        </select>
 
-            <label for="change">Choose What to Style:</label>
-            <select id="change" name="change" onchange="updateStyleSections()">
-                <option value="Shirt only">Shirt only</option>
-                <option value="Pants only">Pants only</option>
-                <option value="Shirt and Pants">Shirt and Pants</option>
-                <option value="Jacket only">Jacket only</option>
-                <option value="Hat only">Hat only</option>
-                <option value="Shirt, Pants, Jacket and Hat">Shirt, Pants, Jacket and Hat</option>
-            </select>
+        <label for="change">Choose What to Style:</label>
+        <select id="change" name="change" onchange="updateStyleSections()">
+            <option value="Shirt only">Shirt only</option>
+            <option value="Pants only">Pants only</option>
+            <option value="Shirt and Pants">Shirt and Pants</option>
+            <option value="Jacket only">Jacket only</option>
+            <option value="Hat only">Hat only</option>
+            <option value="Shirt, Pants, Jacket and Hat">Shirt, Pants, Jacket and Hat</option>
+        </select>
 
-            <div id="style-options">
-                <div id="shirt-style" class="style-block" style="display:none;">
-                    <h3>Shirt Styling</h3>
-                    <label for="shirt_color">Color:</label>
-                    <select id="shirt_color" name="shirt_color"></select>
+        <div id="style-options">
+            <div id="shirt-style" class="style-block" style="display:none;">
+                <h3>Shirt Styling</h3>
+                <label for="shirt_color">Color:</label>
+                <select id="shirt_color" name="shirt_color"></select>
 
-                    <label for="shirt_pattern">Pattern:</label>
-                    <select id="shirt_pattern" name="shirt_pattern"></select>
+                <label for="shirt_pattern">Pattern:</label>
+                <select id="shirt_pattern" name="shirt_pattern"></select>
 
-                    <label for="shirt_type">Type:</label>
-                    <select id="shirt_type" name="shirt_type"></select>
-                </div>
-
-                <div id="pants-style" class="style-block" style="display:none;">
-                    <h3>Pants Styling</h3>
-                    <label for="pants_color">Color:</label>
-                    <select id="pants_color" name="pants_color"></select>
-
-                    <label for="pants_pattern">Pattern:</label>
-                    <select id="pants_pattern" name="pants_pattern"></select>
-
-                    <label for="pants_type">Type:</label>
-                    <select id="pants_type" name="pants_type"></select>
-                </div>
-
-                <div id="jacket-style" class="style-block" style="display:none;">
-                    <h3>Jacket Styling</h3>
-                    <label for="jacket_color">Color:</label>
-                    <select id="jacket_color" name="jacket_color"></select>
-
-                    <label for="jacket_pattern">Pattern:</label>
-                    <select id="jacket_pattern" name="jacket_pattern"></select>
-
-                    <label for="jacket_type">Type:</label>
-                    <select id="jacket_type" name="jacket_type"></select>
-                </div>
-
-                <div id="hat-style" class="style-block" style="display:none;">
-                    <h3>Hat Styling</h3>
-                    <label for="hat_color">Color:</label>
-                    <select id="hat_color" name="hat_color"></select>
-
-                    <label for="hat_pattern">Pattern:</label>
-                    <select id="hat_pattern" name="hat_pattern"></select>
-
-                    <label for="hat_type">Type:</label>
-                    <select id="hat_type" name="hat_type"></select>
-                </div>
+                <label for="shirt_type">Type:</label>
+                <select id="shirt_type" name="shirt_type"></select>
             </div>
 
-            <button type="submit">Generate Style</button>
-        </form>
+            <div id="pants-style" class="style-block" style="display:none;">
+                <h3>Pants Styling</h3>
+                <label for="pants_color">Color:</label>
+                <select id="pants_color" name="pants_color"></select>
 
-        <div class="output-section">
-            {% if output_image_path %}
-            <h4>{{ message }}</h4>
-            <img src="{{ output_image_path }}" alt="Styled Image">
-            <a href="/download/{{ output_filename }}">
-                <button>Download Output</button>
-            </a>
-            {% else %}
-            <p>No output image yet. Submit the form to generate an outfit.</p>
-            {% endif %}
+                <label for="pants_pattern">Pattern:</label>
+                <select id="pants_pattern" name="pants_pattern"></select>
+
+                <label for="pants_type">Type:</label>
+                <select id="pants_type" name="pants_type"></select>
+            </div>
+
+            <div id="jacket-style" class="style-block" style="display:none;">
+                <h3>Jacket Styling</h3>
+                <label for="jacket_color">Color:</label>
+                <select id="jacket_color" name="jacket_color"></select>
+
+                <label for="jacket_pattern">Pattern:</label>
+                <select id="jacket_pattern" name="jacket_pattern"></select>
+
+                <label for="jacket_type">Type:</label>
+                <select id="jacket_type" name="jacket_type"></select>
+            </div>
+
+            <div id="hat-style" class="style-block" style="display:none;">
+                <h3>Hat Styling</h3>
+                <label for="hat_color">Color:</label>
+                <select id="hat_color" name="hat_color"></select>
+
+                <label for="hat_pattern">Pattern:</label>
+                <select id="hat_pattern" name="hat_pattern"></select>
+
+                <label for="hat_type">Type:</label>
+                <select id="hat_type" name="hat_type"></select>
+            </div>
         </div>
+
+        <button type="submit">Generate Style</button>
+    </form>
+
+    <div class="output-section">
+        {% if output_image_paths %}
+            <h4>{{ message }}</h4>
+            <div class="styled-images">
+                {% for img_path in output_image_paths %}
+                    <div class="styled-image-item">
+                        <img src="{{ img_path }}" alt="Styled Image">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="download-links">
+                {% for img_path in output_image_paths %}
+                    <a href="/download/{{ img_path.split('/')[-1] }}">
+                        <button>Download Output</button>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No output image yet. Submit the form to generate an outfit.</p>
+        {% endif %}
+
+        <!-- Auto-recommended images based on the user's upload -->
+        {% if recommended_images %}
+            <h3>Recommended Outfits</h3>
+            <div class="recommended-images">
+                {% for img in recommended_images %}
+                    <div class="recommended-item">
+                        <img src="{{ img }}" alt="Recommended Image">
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
+</div>
+
 
  <!-- ===== FOOTER ===== -->
  <footer class="footer">
