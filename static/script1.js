@@ -66,6 +66,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// === Auth Google signup ===
+window.addEventListener("DOMContentLoaded", async () => {
+    const hash = window.location.hash;
+    if (hash.includes("access_token")) {
+        const params = new URLSearchParams(hash.substring(1));
+        const access_token = params.get("access_token");
+
+        try {
+            const response = await fetch("/finalize_google_login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ access_token }),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                console.error("Login failed:", data.error);
+            } else {
+                console.log(data.message);  // You can show a success message here
+            }
+        } catch (err) {
+            console.error("Error finalizing Google login:", err);
+        }
+
+        // Clean up URL
+        history.replaceState(null, "", window.location.pathname);
+    }
+});
+
 // ===== Login / Sign-Up Modal =====
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -101,12 +129,12 @@ loginForm.addEventListener("submit", async (e) => {
     }
 });
 
-// ======Signup form======
+// ====== Signup form ======
 signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("signupEmail").value.trim();
     const password = document.getElementById("signupPassword").value.trim();
-    const full_name = document.getElementById("signupFullName").value.trim();  // Assuming you have a full name input field
+    const full_name = document.getElementById("signupName").value.trim();  // Assuming you have a full name input field
     const errorMsg = document.getElementById("signupError");
 
     if (!email || !password || !full_name) {
@@ -138,41 +166,25 @@ signupForm.addEventListener("submit", async (e) => {
 });
 
 // ===== TESTIMONIAL CAROUSEL =====
-document.addEventListener("DOMContentLoaded", () => {
-    const testimonials = document.querySelectorAll(".testimonial-card");
-    const prevBtn = document.querySelector(".prev-arrow");
-    const nextBtn = document.querySelector(".next-arrow");
-    let currentIndex = 0;
+const cards = document.querySelectorAll('.card');
+const dots = document.querySelectorAll('.dot');
+let current = 0;
 
-    // Show testimonial
-    const showTestimonial = (index) => {
-        testimonials.forEach((testimonial, i) => {
-            testimonial.classList.toggle("active", i === index);
-        });
-    };
+function showCard(index) {
+  cards.forEach((card, i) => {
+    card.classList.toggle('active', i === index);
+    dots[i].classList.toggle('active', i === index);
+  });
+}
 
-    // Auto-rotate every 5s
-    let autoSlide = setInterval(() => {
-        currentIndex = (currentIndex + 1) % testimonials.length;
-        showTestimonial(currentIndex);
-    }, 5000);
-
-    // Manual navigation
-    prevBtn.addEventListener("click", () => {
-        clearInterval(autoSlide);
-        currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
-        showTestimonial(currentIndex);
-    });
-
-    nextBtn.addEventListener("click", () => {
-        clearInterval(autoSlide);
-        currentIndex = (currentIndex + 1) % testimonials.length;
-        showTestimonial(currentIndex);
-    });
-
-    // Initialize
-    showTestimonial(currentIndex);
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    current = i;
+    showCard(current);
+  });
 });
+
+showCard(current); // Initial load
 
 // ===== IMAGE UPLOAD PREVIEW =====
 const fileInput = document.querySelector('input[type="file"]');
@@ -195,4 +207,25 @@ ScrollReveal().reveal('.section', {
     distance: '50px',
     origin: 'bottom',
     easing: 'ease-in-out'
+});
+
+// ===== Blocking to back page ====
+document.addEventListener('DOMContentLoaded', function () {
+    // Check if the user is logged in (e.g., by checking session storage or cookies)
+    const user = sessionStorage.getItem("user_id");
+
+    if (!user) {
+        // Redirect to the login page if no user is found in session storage
+        window.location.href = "/index.html";  // Or your actual login page URL
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // When the user is logged out, prevent navigating back using browser's back button
+    if (!sessionStorage.getItem("user_id")) {
+        history.pushState(null, null, location.href); // Block back navigation
+        window.onpopstate = function () {
+            history.go(1);  // Prevent going back to the previous page
+        };
+    }
 });
