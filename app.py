@@ -40,41 +40,109 @@ type_options = ['formal', 'casual', 'jeans', 'chinos']
 change_options = ['Shirt only', 'Pants only', 'Shirt and Pants']
 
 # Auth
+# Redirect to Google Auth
 @app.route("/signup", methods=["POST"])
 def signup():
-    data = request.json
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+    full_name = data.get("full_name")
+
+    if not email or not password or not full_name:
+        return jsonify({"error": "All fields are required."}), 400
+
     try:
-        result = supabase.auth.sign_up(
-            email=data.get("email"),
-            password=data.get("password"),
-            options={"email_redirect_to": "http://127.0.0.1:5000/welcome"}
-        )
-        return jsonify({"message": "Signup successful! Please verify your email."}), 200
+        # Sign up user with Supabase
+        response = supabase.auth.sign_up({
+            "email": email,
+            "password": password,
+            "options": {
+                "data": {
+                    "full_name": full_name
+                }
+            }
+        })
+
+        user = response.user
+        if user:
+            session["user_id"] = user.id
+            session["username"] = full_name
+            session["generation_count"] = 0
+            return jsonify({"message": "Signup successful!"}), 200
+        else:
+            return jsonify({"error": "Signup failed."}), 400
+
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
+
 @app.route("/login", methods=["POST"])
 def login():
-    data = request.json
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
     try:
-        result = supabase.auth.sign_in_with_password({"email": data.get("email"), "password": data.get("password")})
-        session["user_id"] = result.user.id
+        result = supabase.auth.sign_in_with_password({
+            "email": email,
+            "password": password
+        })
+
+        user = result.user
+        session["user_id"] = user.id
+        session["username"] = user.user_metadata.get("full_name", "User")
         session["generation_count"] = 0
-        return jsonify({"message": "Login successful!", "session": result.session.access_token}), 200
+
+        return jsonify({
+            "message": "Login successful!",
+            "username": session["username"]
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": "Invalid credentials or login error."}), 401
+
+
+@app.route("/login/google")
+def login_google():
+    redirect_url = "http://localhost:5000/welcome"
+    url = f"{SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to={redirect_url}"
+    return redirect(url)
+
+
+@app.route("/finalize_google_login", methods=["POST"])
+def finalize_google_login():
+    data = request.json
+    access_token = data.get("access_token")
+    if not access_token:
+        return jsonify({"error": "Access token missing"}), 400
+
+    try:
+        user_info = supabase.auth.get_user(access_token)
+        user = user_info.user
+        session["user_id"] = user.id
+        session["username"] = user.user_metadata.get("full_name", "User")
+        session["generation_count"] = 0
+        return jsonify({
+            "message": "Google login successful!",
+            "username": session["username"]
+        }), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect("/")  # This triggers the JS redirect to index.html
 
+# Route to handle the logout
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.clear()  # Clear the session when logging out
+    return redirect(url_for('index'))  # Redirect to the index page after logout
+    
 # Index/Home Route
 @app.route("/", methods=["GET", "POST"])
 def index():
     output_image_path = None
     output_filename = None
     message = None
+    output_image_paths = []  # For storing paths of all generated images
 
     if request.method == "POST":
         session.permanent = True
@@ -109,28 +177,33 @@ def index():
                 image_file.save(img_path)
                 img = Image.open(img_path)
 
-                response = genai_client.models.generate_content(
-                    model="gemini-2.0-flash-exp-image-generation",
-                    contents=[prompt, img],
-                    config=types.GenerateContentConfig(response_modalities=["text", "image"])
-                )
+                # Generate multiple outfit variations
+                for i in range(3):  # Adjust the number of variations as needed
+                    modified_prompt = f"{prompt} (Variation {i + 1})"
+                    response = genai_client.models.generate_content(
+                        model="gemini-2.0-flash-exp-image-generation",
+                        contents=[modified_prompt, img],
+                        config=types.GenerateContentConfig(response_modalities=["text", "image"])
+                    )
 
-                for part in response.candidates[0].content.parts:
-                    if part.inline_data:
-                        output_data = base64.b64decode(part.inline_data.data)
-                        output_filename = "styled_output.png"
-                        output_image_path = f"/static/outputs/{output_filename}"
-                        with open(os.path.join(OUTPUT_FOLDER, output_filename), "wb") as f:
-                            f.write(output_data)
+                    for part in response.candidates[0].content.parts:
+                        if part.inline_data:
+                            output_data = base64.b64decode(part.inline_data.data)
+                            output_filename = f"styled_output_{i + 1}.png"
+                            output_image_path = f"/static/outputs/{output_filename}"
+                            with open(os.path.join(OUTPUT_FOLDER, output_filename), "wb") as f:
+                                f.write(output_data)
+                            output_image_paths.append(output_image_path)
 
             except Exception as e:
                 print(f"Error: {e}")
 
     output_images = [f"/{OUTPUT_FOLDER}/{f}" for f in os.listdir(OUTPUT_FOLDER) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+
     return render_template("index.html", color_options=color_options, pattern_options=pattern_options,
                            type_options=type_options, change_options=change_options,
                            output_image_path=output_image_path, output_images=output_images,
-                           output_filename=output_filename, message=message)
+                           output_filename=output_filename, message=message, output_image_paths=output_image_paths)
 
 # Download
 @app.route("/download/<filename>")
@@ -152,8 +225,8 @@ def clear_history():
 # Welcome Page
 @app.route("/welcome")
 def welcome():
-    return render_template("welcome.html")
-
+    username = session.get("username", "User")
+    return render_template("welcome.html", username=username)
 
 @app.route("/update_options")
 def update_options():
@@ -204,6 +277,7 @@ def tryon():
     output_image_path = None
     output_filename = None
     message = None
+    output_image_paths = []  # For storing paths of all generated images
 
     category = request.form.get("category", "men").lower()
     selected_options = fashion_options.get(category, fashion_options["men"])
@@ -262,25 +336,29 @@ def tryon():
                     image_file.save(img_path)
                     img = Image.open(img_path)
 
-                    response = genai_client.models.generate_content(
-                        model="gemini-2.0-flash-exp-image-generation",
-                        contents=[prompt, img],
-                        config=types.GenerateContentConfig(response_modalities=["text", "image"])
-                    )
+                    # Generate multiple outfit variations
+                    for i in range(3):  # Adjust the number of variations as needed
+                        modified_prompt = f"{prompt} (Variation {i + 1})"
+                        response = genai_client.models.generate_content(
+                            model="gemini-2.0-flash-exp-image-generation",
+                            contents=[modified_prompt, img],
+                            config=types.GenerateContentConfig(response_modalities=["text", "image"])
+                        )
 
-                    for part in response.candidates[0].content.parts:
-                        if part.inline_data:
-                            output_data = base64.b64decode(part.inline_data.data)
-                            output_filename = "styled_tryon_output.png"
-                            output_image_path = f"/static/outputs/{output_filename}"
-                            with open(os.path.join(OUTPUT_FOLDER, output_filename), "wb") as f:
-                                f.write(output_data)
+                        for part in response.candidates[0].content.parts:
+                            if part.inline_data:
+                                output_data = base64.b64decode(part.inline_data.data)
+                                output_filename = f"styled_tryon_output_{i + 1}.png"
+                                output_image_path = f"/static/outputs/{output_filename}"
+                                with open(os.path.join(OUTPUT_FOLDER, output_filename), "wb") as f:
+                                    f.write(output_data)
+                                output_image_paths.append(output_image_path)
 
-                    message = "Your customized try-on is ready!"
+                    message = "Your customized try-on variations are ready!"
 
                 except Exception as e:
                     print(f"Error: {e}")
-                    message = "Something went wrong while generating the styled image."
+                    message = "Something went wrong while generating the styled images."
 
     return render_template("tryon.html",
                            fashion_options=fashion_options,
@@ -291,8 +369,8 @@ def tryon():
                            change_options=change_options,
                            output_image_path=output_image_path,
                            output_filename=output_filename,
-                           message=message)
-
+                           message=message,
+                           output_image_paths=output_image_paths)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
