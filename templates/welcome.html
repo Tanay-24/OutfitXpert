@@ -7,31 +7,32 @@
   <script src="/static/welcome.js"></script>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar" aria-label="Main navigation">
-            <div class="logo-container">
-                <a href="#" class="fashion-logo">
-                  <div class="logo-main">OutfitXpert</div>
-                  <div class="logo-sub">Luxury</div>
-                </a>
-              </div>
-          <ul class="nav-links">
-            <li><a href="#trends">Fashion Trends</a></li>
-            <li><a href="#tryon" id="tryonLink">Try On</a></li>
-            <li><a href="#review">Review</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <div class="user-profile" data-username="{{ username }}">
-            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="User Avatar" />
-  <span class="username"></span>
-  <div class="dropdown-menu">
-    <button id="logoutBtn">Logout</button>
-  </div>
-  </div>
-          </div>
-        </nav>
-      </header>
-    
+  <header class="header">
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="logo-container">
+        <a href="#" class="fashion-logo">
+          <div class="logo-main">OutfitXpert</div>
+          <div class="logo-sub">Luxury</div>
+        </a>
+      </div>
+  
+      <ul class="nav-links">
+        <li><a href="#trends">Fashion Trends</a></li>
+        <li><a href="#tryon" id="tryonLink">Try On</a></li>
+        <li><a href="#review">Review</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+  
+      <!-- User Profile -->
+      <div class="logout-container">
+        <!-- Use a form for logout, ensuring it sends a POST request -->
+        <form action="/logout" method="POST">
+          <button type="submit" id="logoutBtn">Logout</button>
+        </form>
+      </div>
+    </nav>
+  </header>
+      
       <!-- ===== HERO SECTION ===== -->
       <div class="hero-section">
         <div class="hero-content">
